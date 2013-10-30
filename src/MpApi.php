@@ -19,7 +19,7 @@ class MpApi{
                     
                 $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $type = $postObj->MsgType;
-
+                file_put_contents(ROOT_PATH . '/data.log', $type . PHP_EOL, FILE_APPEND);
                 // 根据不同的消息类型初始化对象
                 $instance = MsgController::factory($type);
                 $instance->processMsg($postObj) ;
