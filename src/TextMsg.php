@@ -12,8 +12,11 @@ class TextMsg{
         $time = time();
         if(!empty( $keyword ))
         {
-            $contentStr = '您发的文本已经收到';
-            $this->send($contentStr, WEIXINID, $fromUsername);
+//            $contentStr = '您发的文本已经收到';
+ //           $this->send($contentStr, WEIXINID, $fromUsername);
+            $mediaID = 'vVIK447r1FMlJUovc09iYiAaDiyXBPpBZwYRqysGF2dcoYtigwQ9t-OTQjediU11';
+            $voiceMsg = MsgController::factory(MsgController::MESSAGE_TYPE_VOICE);
+            $voiceMsg->send($mediaID, WEIXINID, $fromUsername);
         }
     }
 
