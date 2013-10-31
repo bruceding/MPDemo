@@ -1,11 +1,12 @@
 <?php
-require 'MpApi.php';
+define('WEIXINID', 'gz_bruceding');
+define('ROOT_PATH', __DIR__);
+
+require ROOT_PATH . '/src/MpApi.php';
 
 /**
   * wechat php test
   */
-define('WEIXINID', 'gz_bruceding');
-define('ROOT_PATH', __DIR__);
 
 $api = new MpApi();
 try {

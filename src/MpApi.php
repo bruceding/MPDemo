@@ -1,6 +1,6 @@
 <?php
-require 'SigCheck.php';
-require 'MsgController.php';
+require ROOT_PATH . '/src/SigCheck.php';
+require ROOT_PATH . '/src/MsgController.php';
 
 class MpApi{
 

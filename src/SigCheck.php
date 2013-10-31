@@ -1,4 +1,5 @@
 <?php
+
 define('TOKEN', 'weixin');
 class SigCheck{
 

@@ -1,12 +1,12 @@
 <?php
-require 'TextMsg.php';
-require 'EventMsg.php';
-require 'ImageMsg.php';
-require 'LinkMsg.php';
-require 'LocationMsg.php';
-require 'VoiceMsg.php';
-require 'VideoMsg.php';
-require 'NewsMsg.php';
+require ROOT_PATH . '/src/TextMsg.php';
+require ROOT_PATH . '/src/EventMsg.php';
+require ROOT_PATH . '/src/ImageMsg.php';
+require ROOT_PATH . '/src/LinkMsg.php';
+require ROOT_PATH . '/src/LocationMsg.php';
+require ROOT_PATH . '/src/VoiceMsg.php';
+require ROOT_PATH . '/src/VideoMsg.php';
+require ROOT_PATH . '/src/NewsMsg.php';
 
 class MsgController{
     
@@ -53,22 +53,14 @@ class MsgController{
     public static function factory($type = '') {
 
         $type = strtolower($type);
-        if ($type == self::MESSAGE_TYPE_TEXT) {
-            return new TextMsg();
-        } else if ($type == self::MESSAGE_TYPE_EVENT) {
-        	return new EventMsg();
-        } else if ($type == self::MESSAGE_TYPE_IMAGE) {
-            return new ImageMsg();
-        } else if ($type == self::MESSAGE_TYPE_LINK) {
-            return new LinkMsg();
-        } else if ($type == self::MESSAGE_TYPE_LOCATION) {
-            return new LocationMsg();
-        } else if ($type == self::MESSAGE_TYPE_VOICE) {
-            return new VoiceMsg();
-        } else if ($type == self::MESSAGE_TYPE_VIDEO) {
-            return new VideoMsg();
-        } else if ($type == self::MESSAGE_TYPE_NEWS) {
-            return new NewsMsg();
+
+        // 实例化消息类型相关的类
+        $class = ucfirst($type) . 'Msg';
+
+        if (!class_exists($class)) {
+            throw new Exception('not found class:' . $class);
         }
+
+        return new $class();
     }
 }
