@@ -13,10 +13,20 @@ class TextMsg{
         if(!empty( $keyword ))
         {
 //            $contentStr = '您发的文本已经收到';
- //           $this->send($contentStr, WEIXINID, $fromUsername);
-            $mediaID = 'vVIK447r1FMlJUovc09iYiAaDiyXBPpBZwYRqysGF2dcoYtigwQ9t-OTQjediU11';
-            $voiceMsg = MsgController::factory(MsgController::MESSAGE_TYPE_VOICE);
-            $voiceMsg->send($mediaID, WEIXINID, $fromUsername);
+//            $this->send($contentStr, WEIXINID, $fromUsername);
+//            $mediaID = 'vVIK447r1FMlJUovc09iYiAaDiyXBPpBZwYRqysGF2dcoYtigwQ9t-OTQjediU11';
+//            $voiceMsg = MsgController::factory(MsgController::MESSAGE_TYPE_VOICE);
+//            $voiceMsg->send($mediaID, WEIXINID, $fromUsername);
+            $newsMsg = MsgController::factory(MsgController::MESSAGE_TYPE_NEWS);
+            $news = array();
+            $news['articleCount'] = 1;
+            $new = array();
+            $new['title'] = '测试图文消息';
+            $new['description'] = '这是一个测试';
+            $new['picUrl'] = 'http://p.qpic.cn/ecc_merchant/0/P_idc1321596_1382500696281/0';
+            $new['url'] = 'http://www.google.com'; 
+            $news['news'][] = $new;
+            $newsMsg->responseMsg($postObj, $news);
         }
     }
 

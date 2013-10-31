@@ -6,6 +6,7 @@ require 'LinkMsg.php';
 require 'LocationMsg.php';
 require 'VoiceMsg.php';
 require 'VideoMsg.php';
+require 'NewsMsg.php';
 
 class MsgController{
     
@@ -40,6 +41,11 @@ class MsgController{
     const MESSAGE_TYPE_VIDEO = "video";
 
     /**
+     * 消息类型：图文消息  
+     */
+    const MESSAGE_TYPE_NEWS = "news";
+
+    /**
      * 消息类型：事件 
      */
     const MESSAGE_TYPE_EVENT = "event";
@@ -61,6 +67,8 @@ class MsgController{
             return new VoiceMsg();
         } else if ($type == self::MESSAGE_TYPE_VIDEO) {
             return new VideoMsg();
+        } else if ($type == self::MESSAGE_TYPE_NEWS) {
+            return new NewsMsg();
         }
     }
 }
