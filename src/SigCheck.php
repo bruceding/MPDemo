@@ -1,6 +1,5 @@
 <?php
 
-define('TOKEN', 'weixin');
 class SigCheck{
 
 	public function valid()

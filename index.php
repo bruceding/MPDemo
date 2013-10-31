@@ -1,7 +1,9 @@
 <?php
-define('WEIXINID', 'gz_bruceding');
+
+// 设置当前项目的根目录
 define('ROOT_PATH', __DIR__);
 
+require ROOT_PATH . '/src/config.php';
 require ROOT_PATH . '/src/MpApi.php';
 
 /**
