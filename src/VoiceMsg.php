@@ -8,14 +8,27 @@ class VoiceMsg{
     
         $fromUsername = $postObj->FromUserName;
         $toUsername = $postObj->ToUserName;
-        $keyword = trim($postObj->MediaId);
-        $time = time();
-        if(!empty( $keyword ))
+        $mediaId = trim($postObj->MediaId);
+        if(!empty( $mediaId ))
         {
-            file_put_contents(ROOT_PATH . '/data.log', $keyword . "\t" . $postObj->Format . PHP_EOL, FILE_APPEND);
-            //$contentStr = '您发的文本已经收到';
-            //$this->send($contentStr, WEIXINID, $fromUsername);
+            $this->responseMsg($postObj, $mediaId);
         }
+    }
+
+    public function responseMsg($postObj, $mediaId) {
+    
+        $tpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[%s]]></MsgType>
+                    <Voice>
+                    <MediaId><![CDATA[%s]]></MediaId>
+                    </Voice>
+                    </xml>";             
+
+        $resultStr = sprintf($tpl, $postObj->FromUserName,  $postObj->ToUserName, time(), self::MESSAGE_TYPE, $mediaId);
+        echo $resultStr;
     }
 
     /**

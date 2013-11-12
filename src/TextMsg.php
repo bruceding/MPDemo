@@ -1,6 +1,16 @@
 <?php
 
-class TextMsg{
+/**
+ * TextMsg
+ * 文本消息类
+ * 
+ * @package 
+ * @version $id$
+ * @copyright 1997-2005 The PHP Group
+ * @author Tobias Schlitt <toby@php.net> 
+ * @license PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}
+ */
+class TextMsg {
 
     const MESSAGE_TYPE = "text";
 
@@ -8,9 +18,9 @@ class TextMsg{
     
         $fromUsername = $postObj->FromUserName;
         $toUsername = $postObj->ToUserName;
-        $keyword = trim($postObj->Content);
+        $content = trim($postObj->Content);
         $time = time();
-        if(!empty( $keyword ))
+        if(!empty( $content ))
         {
 //            $contentStr = '您发的文本已经收到';
 //            $this->send($contentStr, WEIXINID, $fromUsername);
@@ -31,16 +41,15 @@ class TextMsg{
     }
 
     /**
-     * send
-     * 文本消息的发送
+     * responseMsg
+     * 回复文本消息的发送
      * 
-     * @param mixed $msg  消息内容 
-     * @param mixed $wxid  开发者的微信号
-     * @param mixed $openid  用户的openid
+     * @param mixed $postObj  微信推送的消息结构体 
+     * @param mixed $msg  回复消息内容 
      * @access public
      * @return void
      */
-    public function send($msg, $wxid, $openid) {
+    public function responseMsg($postObj, $msg) {
     
         $textTpl = "<xml>
                     <ToUserName><![CDATA[%s]]></ToUserName>
@@ -50,7 +59,7 @@ class TextMsg{
                     <Content><![CDATA[%s]]></Content>
                     <FuncFlag>0</FuncFlag>
                     </xml>";             
-        $resultStr = sprintf($textTpl, $openid,  $wxid, time(), self::MESSAGE_TYPE, $msg);
+        $resultStr = sprintf($textTpl, $postObj->FromUserName,  $postObj->ToUserName, time(), self::MESSAGE_TYPE, $msg);
         echo $resultStr;
     }
 }

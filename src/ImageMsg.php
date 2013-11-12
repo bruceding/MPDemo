@@ -8,15 +8,28 @@ class ImageMsg{
     
         $fromUsername = $postObj->FromUserName;
         $toUsername = $postObj->ToUserName;
-        $keyword = trim($postObj->PicUrl);
-        $time = time();
-        if(!empty( $keyword ))
+        $picUrl = trim($postObj->PicUrl);
+        if(!empty( $picUrl ))
         {
-            $contentStr = '您发的图片消息已经收到';
-            //$picurl = 'https://mp.weixin.qq.com/cgi-bin/getqrcode?fakeid=2391036540&token=2061340161&style=1';
-            $textMsg =  MsgController::factory(MsgController::MESSAGE_TYPE_TEXT);
-            $textMsg->send($contentStr, WEIXINID, $fromUsername);
+            $this->responseMsg($postObj, $postObj->MediaId); 
         }
+    }
+
+
+    public function responseMsg($postObj, $mediaId) {
+    
+        $tpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[%s]]></MsgType>
+                    <Image>
+                    <MediaId><![CDATA[%s]]></MediaId>
+                    </Image>
+                    </xml>";             
+
+        $resultStr = sprintf($tpl, $postObj->FromUserName,  $postObj->ToUserName, time(), self::MESSAGE_TYPE, $mediaId);
+        echo $resultStr;
     }
 
 }

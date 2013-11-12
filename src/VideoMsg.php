@@ -8,29 +8,27 @@ class VideoMsg{
     
         $fromUsername = $postObj->FromUserName;
         $toUsername = $postObj->ToUserName;
-        $keyword = trim($postObj->MediaId);
+        $mediaId = trim($postObj->MediaId);
         $thumbMediaId = trim($postObj->ThumbMediaId); // 缩略图
-        $time = time();
-        if(!empty( $keyword ))
+        if(!empty( $mediaId ))
         {
-            //file_put_contents(ROOT_PATH . '/data.log', $keyword . "\t" . $postObj->Format . PHP_EOL, FILE_APPEND);
-            $this->send('', '', $postObj);
+            $this->responseMsg($postObj, $mediaId, $thumbMediaId);
         }
     }
 
     /**
-     * send
-     * 文本消息的发送
+     * responseMsg
+     * 回复视频消息的发送
      * 
-     * @param mixed $msg  消息内容 
-     * @param mixed $wxid  开发者的微信号
-     * @param mixed $openid  用户的openid
+     * @param mixed $postObj  
+     * @param mixed $mediaId  视频内容
+     * @param mixed $thumbMediaId  视频缩略图内容
      * @access public
      * @return void
      */
-    public function send($mediaId, $thumbMediaId,  $postObj) {
+    public function responseMsg($postObj, $mediaId, $thumbMediaId) {
     
-        $textTpl = "<xml>
+        $tpl = "<xml>
                     <ToUserName><![CDATA[%s]]></ToUserName>
                     <FromUserName><![CDATA[%s]]></FromUserName>
                     <CreateTime>%s</CreateTime>
@@ -40,7 +38,7 @@ class VideoMsg{
                     <ThumbMediaId><![CDATA[%s]]></ThumbMediaId>
                     </Video> 
                     </xml>";             
-        $resultStr = sprintf($textTpl, $postObj->FromUserName,  $postObj->ToUserName, time(), self::MESSAGE_TYPE, $postObj->MediaId, $postObj->ThumbMediaId);
+        $resultStr = sprintf($tpl, $postObj->FromUserName,  $postObj->ToUserName, time(), self::MESSAGE_TYPE, $mediaId, $thumbMediaId);
         echo $resultStr;
     }
 }
