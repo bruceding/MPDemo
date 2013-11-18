@@ -32,7 +32,7 @@ class NewsMsg{
     public function responseMsg($postObj, array $news) {
     
         if (!$news['articleCount'] || !is_array($news['news'])) {
-            throw new InvalidException('Invalid news');
+            throw new InvalidArgumentException('Invalid news');
         } 
 
         $textTpl = "<xml>
