@@ -53,6 +53,7 @@ class RuleConfig {
 
         $str = file_get_contents($this->_config_file);
 
+        // 转化成数组
         eval("\$rules=$str;");
 
         return $rules;
