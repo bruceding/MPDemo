@@ -45,46 +45,42 @@ class Logger {
     }
 
     private static function _getLogDirectory($e) {
-       
-        if ($e instanceof Exception) {
-            $path = $e->getFile();
-            $path = explode('/', $path);
 
-            $rootPath = explode('/', ROOT_PATH);
-            /**
-            foreach ($path as $key => $value) {
+        $trace = debug_backtrace();
+        $path = $trace[1]['file']; 
 
-                // 过滤掉不需要的路径
-                if (in_array($value, self::$_unuse_dir)) {
-                    unset($path[$key]);
-                    break;
-                } 
-                unset($path[$key]);
+        $path = explode('/', $path);
+
+        $rootPath = explode('/', ROOT_PATH);
+        $file = '';
+        foreach ($path as $key => $value) {
+
+            // 过滤掉根目录
+            if (in_array($value, $rootPath)) {
+                continue;
             }
-            **/
 
-            $file = '';
-            foreach ($path as $key => $value) {
-
-                // 过滤掉根目录
-                if (in_array($value, $rootPath)) {
-                    continue;
-                }
-
-                $file .= $value . '/';
-            }
-            $file = substr($file, 0, strpos($file, '.'));
-
-            return $file . '/' . date('Y-m-d') . '.log';
+            $file .= $value . '/';
         }
+        $file = substr($file, 0, strpos($file, '.'));
+
+        return $file . '/' . date('Y-m-d') . '.log';
 
     }
 
     public static function warning($e, $file = '') {
+        if (!$file) {
+            $file = self::_getLogDirectory();
+        }
+
         self::log($e, self::LOG_LEVEL_WARNING, $file);
     }
     
     public static function debug($e, $file='') {
+        if (!$file) {
+            $file = self::_getLogDirectory();
+        }
+
         self::log($e, self::LOG_LEVEL_DEBUG, $file); 
     }
     public static function log($e, $level, $file) {
