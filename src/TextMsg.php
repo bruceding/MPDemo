@@ -1,4 +1,5 @@
 <?php
+require ROOT_PATH . '/src/RuleController.php';
 
 /**
  * TextMsg
@@ -27,6 +28,13 @@ class TextMsg {
 //            $mediaID = 'vVIK447r1FMlJUovc09iYiAaDiyXBPpBZwYRqysGF2dcoYtigwQ9t-OTQjediU11';
 //            $voiceMsg = MsgController::factory(MsgController::MESSAGE_TYPE_VOICE);
 //            $voiceMsg->send($mediaID, WEIXINID, $fromUsername);
+            
+            // 先走自动回复，如果没有，默认回复一条图文消息
+            $ruleController = new RuleController();
+            if ($ruleController->autoReply($postObj)) {
+                return true;
+            }
+
             $newsMsg = MsgController::factory(MsgController::MESSAGE_TYPE_NEWS);
             $news = array();
             $news['articleCount'] = 1;
