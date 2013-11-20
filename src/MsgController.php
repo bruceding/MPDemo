@@ -50,6 +50,15 @@ class MsgController{
      */
     const MESSAGE_TYPE_EVENT = "event";
 
+    /**
+     * factory 
+     * 实例化消息类型
+     * 
+     * @param string $type 
+     * @static
+     * @access public
+     * @return void
+     */
     public static function factory($type = '') {
 
         $type = strtolower($type);

@@ -20,6 +20,14 @@ class RuleController {
         $this->_rule_tactics[] = new ConfigReplyTactic();    
     }
 
+    /**
+     * autoReply 
+     * 根据每个回复策略进行回复消息
+     * 
+     * @param mixed $postObj 
+     * @access public
+     * @return void
+     */
     public function autoReply($postObj) {
 
         foreach ($this->_rule_tactics as $tactic) {

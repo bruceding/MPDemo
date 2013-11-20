@@ -26,6 +26,14 @@ class ConfigReplyTactic {
         return $this->sendReplyMsg($rule, $postObj);
     }
 
+    /**
+     * matchRule 
+     * 查找匹配规则
+     * 
+     * @param mixed $postObj 
+     * @access public
+     * @return void
+     */
     public function matchRule($postObj) {
 
         $content = $postObj->Content;
@@ -63,6 +71,15 @@ class ConfigReplyTactic {
         return $this->_rules;
     }
 
+    /**
+     * sendReplyMsg 
+     * 根据匹配到的规则进行回复消息
+     * 
+     * @param mixed $rule 
+     * @param mixed $postObj 
+     * @access public
+     * @return void
+     */
     public function sendReplyMsg($rule, $postObj) {
         
         foreach ($this->_rules['messageInfos'] as $msgInfo) {
