@@ -1,5 +1,7 @@
 <?php
 require ROOT_PATH . '/src/ConfigReplyTactic.php';
+require ROOT_PATH . '/src/TranslateReplyTactic.php';
+
 /**
  * RuleController 
  * 规则控制器
@@ -17,7 +19,9 @@ class RuleController {
     public function __construct() {
 
         // 注册回复策略
+        // 这里可以从配置文件中读取回复策略
         $this->_rule_tactics[] = new ConfigReplyTactic();    
+        $this->_rule_tactics[] = new TranslateReplyTactic();    
     }
 
     /**
