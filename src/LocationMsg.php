@@ -1,4 +1,5 @@
 <?php
+require ROOT_PATH . '/src/ZipCodeReplyTactic.php';
 
 class LocationMsg{
 
@@ -12,9 +13,13 @@ class LocationMsg{
         $time = time();
         if(!empty( $location ))
         {
-            $contentStr = "您发的地理位置消息已经收到,经度:{$postObj->Location_Y},纬度:{$postObj->Location_X},位置信息:{$location}" ;
-            $textMsg =  MsgController::factory(MsgController::MESSAGE_TYPE_TEXT);
-            $textMsg->responseMsg($postObj, $contentStr);
+            $zipcodeTactic = new ZipCodeReplyTactic();
+            if (!$zipcodeTactic->reply($postObj)) {
+                $contentStr = '很抱歉，没有找到邮政编码';
+                Logger::debug("not find zipcode\t{$postObj->Label}");
+                $textMsg =  MsgController::factory(MsgController::MESSAGE_TYPE_TEXT);
+                $textMsg->responseMsg($postObj, $contentStr);
+            }
         }
     }
 
