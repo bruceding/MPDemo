@@ -18,7 +18,7 @@ class BaiDuTranslate {
                     );
 
        try {
-            $res = $this->_request($url, $get, $post);
+            $res = $this->_request($url, array(), $post);
        } catch (Exception $e) {
             $this->_isGood = false;
             Logger::error($e); 
